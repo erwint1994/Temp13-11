@@ -18,6 +18,8 @@ namespace WindowsFormsApp1
     {
         string MyConnectionString2 = ConfigurationManager.ConnectionStrings["Connection"].ConnectionString;
 
+        private int selectedCellRow = 0;
+        private int selectedCellColumn = 0;
         public new Gebruiker ParentForm { get; set; }
         public Gebruiker ParentForm2 { get; set; }
         // load
@@ -67,22 +69,22 @@ namespace WindowsFormsApp1
         // query (mail service)
         public void SelectUsers()
         {
-            dataGridView1.DataSource = SQL.GetSQLDataView("SELECT Id, Email, Voornaam, Tussenvoegsel, Achternaam, Banned FROM tbl_EmailAdress");
-            dataGridView1.Columns[0].Visible = false;
-            dataGridView1.Columns[1].Width = 240;
-            dataGridView1.Columns[2].Width = 230;
-            dataGridView1.Columns[3].Width = 100;
-            dataGridView1.Columns[4].Width = 235;
-            dataGridView1.Columns[5].Width = 60;
+            DataGridView1.DataSource = SQL.GetSQLDataView("SELECT Id, Email, Voornaam, Tussenvoegsel, Achternaam, Banned FROM tbl_EmailAdress");
+            DataGridView1.Columns[0].Visible = false;
+            DataGridView1.Columns[1].Width = 240;
+            DataGridView1.Columns[2].Width = 230;
+            DataGridView1.Columns[3].Width = 100;
+            DataGridView1.Columns[4].Width = 235;
+            DataGridView1.Columns[5].Width = 60;
         }
         public void DeleteRecord()
         {
             using (SqlConnection connection2 = new SqlConnection(MyConnectionString2))
             {
-                if (dataGridView1.SelectedRows.Count > 0)
+                if (DataGridView1.SelectedRows.Count > 0)
                 {
-                    int selectedIndex = dataGridView1.SelectedRows[0].Index;
-                    int rowID = int.Parse(dataGridView1[0, selectedIndex].Value.ToString());
+                    int selectedIndex = DataGridView1.SelectedRows[0].Index;
+                    int rowID = int.Parse(DataGridView1[0, selectedIndex].Value.ToString());
                     string sql = "DELETE FROM tbl_EmailAdress WHERE id=@RowID";
                     SqlCommand deleteRecord = new SqlCommand
                     {
@@ -108,7 +110,7 @@ namespace WindowsFormsApp1
         {
             try
             {
-                int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[0].Value);
+                int id = Convert.ToInt32(DataGridView1.SelectedRows[0].Cells[0].Value);
                 Rights.id = id;
             }
             catch(Exception E)
@@ -120,10 +122,10 @@ namespace WindowsFormsApp1
         {
             using (SqlConnection connection2 = new SqlConnection(MyConnectionString2))
             {
-                if (dataGridView1.SelectedRows.Count > 0)
+                if (DataGridView1.SelectedRows.Count > 0)
                 {
-                    int selectedIndex = dataGridView1.SelectedRows[0].Index;
-                    int rowID = int.Parse(dataGridView1[0, selectedIndex].Value.ToString());
+                    int selectedIndex = DataGridView1.SelectedRows[0].Index;
+                    int rowID = int.Parse(DataGridView1[0, selectedIndex].Value.ToString());
                     string sql = "UPDATE tbl_EmailAdress SET Banned=1 WHERE id=@RowID";
                     SqlCommand BanUser = new SqlCommand
                     {
@@ -150,10 +152,10 @@ namespace WindowsFormsApp1
         {
             using (SqlConnection connection2 = new SqlConnection(MyConnectionString2))
             {
-                if (dataGridView1.SelectedRows.Count > 0)
+                if (DataGridView1.SelectedRows.Count > 0)
                 {
-                    int selectedIndex = dataGridView1.SelectedRows[0].Index;
-                    int rowID = int.Parse(dataGridView1[0, selectedIndex].Value.ToString());
+                    int selectedIndex = DataGridView1.SelectedRows[0].Index;
+                    int rowID = int.Parse(DataGridView1[0, selectedIndex].Value.ToString());
                     string sql = "UPDATE tbl_EmailAdress SET Banned=0 WHERE id=@RowID";
                     SqlCommand UnbanUser = new SqlCommand
                     {
@@ -176,16 +178,15 @@ namespace WindowsFormsApp1
             }
                 
         }
-
         // query (mail wfapp)
         public void DeleteRecordWFApp()
         {
             using (SqlConnection connection2 = new SqlConnection(MyConnectionString2))
             {
-                if (dataGridView2.SelectedRows.Count > 0)
+                if (DataGridView2.SelectedRows.Count > 0)
                 {
-                    int selectedIndex = dataGridView2.SelectedRows[0].Index;
-                    int rowID = int.Parse(dataGridView2[0, selectedIndex].Value.ToString());
+                    int selectedIndex = DataGridView2.SelectedRows[0].Index;
+                    int rowID = int.Parse(DataGridView2[0, selectedIndex].Value.ToString());
                     string sql = "DELETE FROM tbl_EmailAdressWFapp WHERE id=@RowID";
                     SqlCommand deleteRecord = new SqlCommand
                     {
@@ -209,27 +210,27 @@ namespace WindowsFormsApp1
         }
         public void SelectUsersWFApp()
         {
-            dataGridView2.DataSource = SQL.GetSQLDataView("SELECT Id, Email, Voornaam, Tussenvoegsel, Achternaam, Banned FROM tbl_EmailAdressWFapp");
-            this.dataGridView2.Columns[1].ReadOnly = true;
-            this.dataGridView2.Columns[2].ReadOnly = true;
-            this.dataGridView2.Columns[3].ReadOnly = true;
-            this.dataGridView2.Columns[4].ReadOnly = true;
-            this.dataGridView2.Columns[5].ReadOnly = true;
-            dataGridView2.Columns[0].Visible = false;
-            dataGridView2.Columns[1].Width = 240;
-            dataGridView2.Columns[2].Width = 230;
-            dataGridView2.Columns[3].Width = 100;
-            dataGridView2.Columns[4].Width = 235;
-            dataGridView2.Columns[5].Width = 60;
+            DataGridView2.DataSource = SQL.GetSQLDataView("SELECT Id, Email, Voornaam, Tussenvoegsel, Achternaam, Banned FROM tbl_EmailAdressWFapp");
+            this.DataGridView2.Columns[1].ReadOnly = true;
+            this.DataGridView2.Columns[2].ReadOnly = true;
+            this.DataGridView2.Columns[3].ReadOnly = true;
+            this.DataGridView2.Columns[4].ReadOnly = true;
+            this.DataGridView2.Columns[5].ReadOnly = true;
+            DataGridView2.Columns[0].Visible = false;
+            DataGridView2.Columns[1].Width = 240;
+            DataGridView2.Columns[2].Width = 230;
+            DataGridView2.Columns[3].Width = 100;
+            DataGridView2.Columns[4].Width = 235;
+            DataGridView2.Columns[5].Width = 60;
         }
         public void BanAccountMailWFApp()
         {
             using (SqlConnection connection2 = new SqlConnection(MyConnectionString2))
             {
-                if (dataGridView2.SelectedRows.Count > 0)
+                if (DataGridView2.SelectedRows.Count > 0)
                 {
-                    int selectedIndex = dataGridView2.SelectedRows[0].Index;
-                    int rowID = int.Parse(dataGridView2[0, selectedIndex].Value.ToString());
+                    int selectedIndex = DataGridView2.SelectedRows[0].Index;
+                    int rowID = int.Parse(DataGridView2[0, selectedIndex].Value.ToString());
                     string sql = "UPDATE tbl_EmailAdressWFapp SET Banned=1 WHERE id=@RowID";
                     SqlCommand BanUser = new SqlCommand
                     {
@@ -256,10 +257,10 @@ namespace WindowsFormsApp1
         {
             using (SqlConnection connection2 = new SqlConnection(MyConnectionString2))
             {
-                if (dataGridView2.SelectedRows.Count > 0)
+                if (DataGridView2.SelectedRows.Count > 0)
                 {
-                    int selectedIndex = dataGridView2.SelectedRows[0].Index;
-                    int rowID = int.Parse(dataGridView2[0, selectedIndex].Value.ToString());
+                    int selectedIndex = DataGridView2.SelectedRows[0].Index;
+                    int rowID = int.Parse(DataGridView2[0, selectedIndex].Value.ToString());
                     string sql = "UPDATE tbl_EmailAdressWFapp SET Banned=0 WHERE id=@RowID";
                     SqlCommand UnbanUser = new SqlCommand
                     {
@@ -286,7 +287,7 @@ namespace WindowsFormsApp1
         {
             try
             {
-                int id = Convert.ToInt32(dataGridView2.SelectedRows[0].Cells[0].Value);
+                int id = Convert.ToInt32(DataGridView2.SelectedRows[0].Cells[0].Value);
                 Rights.id = id;
             }
             catch (Exception E)
@@ -327,6 +328,56 @@ namespace WindowsFormsApp1
         {
             UnBanAccountMailWFApp();
             SelectUsersWFApp();
+        }
+
+        private void DataGridView1_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+            if (e.Cell == null || e.StateChanged != DataGridViewElementStates.Selected)
+                return;
+
+            if (e.Cell.RowIndex == selectedCellRow && e.Cell.ColumnIndex == selectedCellColumn)
+                return;
+
+            if (!e.Cell.Selected)
+                return;
+
+            if (e.Cell.RowIndex == 0 || e.Cell.ColumnIndex == 0 || e.Cell.RowIndex == 1 && e.Cell.ColumnIndex == 1 || e.Cell.RowIndex == 1 || e.Cell.ColumnIndex == 1 || e.Cell.RowIndex == 2 && e.Cell.ColumnIndex == 2
+                || e.Cell.RowIndex == 2 || e.Cell.ColumnIndex == 2 || e.Cell.RowIndex == 3 && e.Cell.ColumnIndex == 3 || e.Cell.RowIndex == 3 || e.Cell.ColumnIndex == 3 || e.Cell.RowIndex == 4 && e.Cell.ColumnIndex == 4
+                || e.Cell.RowIndex == 4 || e.Cell.ColumnIndex == 4)
+            {
+                e.Cell.Selected = false;
+                DataGridView1.Rows[selectedCellRow].Cells[selectedCellColumn].Selected = true;
+            }
+            else
+            {
+                selectedCellRow = e.Cell.RowIndex;
+                selectedCellColumn = e.Cell.ColumnIndex;
+            }
+        }
+
+        private void DataGridView2_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
+        {
+            if (e.Cell == null || e.StateChanged != DataGridViewElementStates.Selected)
+                return;
+
+            if (e.Cell.RowIndex == selectedCellRow && e.Cell.ColumnIndex == selectedCellColumn)
+                return;
+
+            if (!e.Cell.Selected)
+                return;
+
+            if (e.Cell.RowIndex == 0 || e.Cell.ColumnIndex == 0 || e.Cell.RowIndex == 1 && e.Cell.ColumnIndex == 1 || e.Cell.RowIndex == 1 || e.Cell.ColumnIndex == 1 || e.Cell.RowIndex == 2 && e.Cell.ColumnIndex == 2
+                || e.Cell.RowIndex == 2 || e.Cell.ColumnIndex == 2 || e.Cell.RowIndex == 3 && e.Cell.ColumnIndex == 3 || e.Cell.RowIndex == 3 || e.Cell.ColumnIndex == 3 || e.Cell.RowIndex == 4 && e.Cell.ColumnIndex == 4
+                || e.Cell.RowIndex == 4 || e.Cell.ColumnIndex == 4)
+            {
+                e.Cell.Selected = false;
+                DataGridView2.Rows[selectedCellRow].Cells[selectedCellColumn].Selected = true;
+            }
+            else
+            {
+                selectedCellRow = e.Cell.RowIndex;
+                selectedCellColumn = e.Cell.ColumnIndex;
+            }
         }
     }
 }
